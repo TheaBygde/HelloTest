@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ColorButton</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: sans-serif;
+      background: #f0f0f0;
+    }
+    #color-btn {
+      padding: 2rem 4rem;
+      font-size: 1.25rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+    #color-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    #button-container {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    #randomize-btn {
+      width: 80px;
+      height: 80px;
+      border: none;
+      cursor: pointer;
+      background-color: hotpink;
+      clip-path: path('M 40,75 C 5,55 0,35 0,25 C 0,10 10,0 25,0 C 32,0 38,3 40,8 C 42,3 48,0 55,0 C 70,0 80,10 80,25 C 80,35 75,55 40,75 Z');
+      transition: background-color 0.2s, opacity 0.2s;
+    }
+    #randomize-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <div id="button-container">
+    <button id="color-btn"></button>
+    <button id="randomize-btn"></button>
+  </div>
+
+  <script>
+    // --- ComponentState (mirrors HelloWorld.Core.ComponentState) ---
+    function createState(colors, currentIndex = 0) {
+      let resolvedColors;
+      let isInteractive;
+
+      if (!colors || colors.length === 0) {
+        resolvedColors = ["gray"];
+        isInteractive = false;
+        currentIndex = 0;
+      } else {
+        resolvedColors = colors.slice(); // preserve immutability
+        isInteractive = true;
+        if (currentIndex < 0 || currentIndex >= resolvedColors.length) {
+          currentIndex = 0;
+        }
+      }
+
+      return { colors: resolvedColors, currentIndex, isInteractive };
+    }
+
+    function getCurrentColor(state) {
+      return state.colors[state.currentIndex];
+    }
+
+    function handleClick(state) {
+      const nextIndex = (state.currentIndex + 1) % state.colors.length;
+      return { ...state, currentIndex: nextIndex };
+    }
+
+    function randomize(state) {
+      return { ...state, currentIndex: Math.floor(Math.random() * state.colors.length) };
+    }
+
+    // --- ColorButton wiring ---
+    const palette = [
+      { hex: "#ff69b4", name: "Hot Pink" },
+      { hex: "#ff1493", name: "Deep Pink" },
+      { hex: "#c71585", name: "Medium Violet Red" },
+      { hex: "#db7093", name: "Pale Violet Red" },
+      { hex: "#ff00ff", name: "Magenta" },
+      { hex: "#ba55d3", name: "Medium Orchid" },
+      { hex: "#9b59b6", name: "Amethyst" },
+      { hex: "#8b008b", name: "Dark Magenta" },
+    ];
+
+    // Colors stored as hex strings for ComponentState compatibility
+    let state = createState(palette.map(c => c.hex));
+
+    const btn = document.getElementById("color-btn");
+    const randomizeBtn = document.getElementById("randomize-btn");
+
+    function render() {
+      const hex = getCurrentColor(state);
+      const entry = palette.find(c => c.hex === hex) || { hex, name: hex };
+      btn.style.backgroundColor = hex;
+      btn.textContent = `${entry.name} · ${hex}`;
+      btn.disabled = !state.isInteractive;
+      randomizeBtn.disabled = !state.isInteractive;
+    }
+
+    btn.addEventListener("click", () => {
+      if (!state.isInteractive) return;
+      state = handleClick(state);
+      render();
+    });
+
+    randomizeBtn.addEventListener("click", () => {
+      if (!state.isInteractive) return;
+      state = randomize(state);
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
