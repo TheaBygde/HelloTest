@@ -1,0 +1,12 @@
+C:\C#Programs\HelloTest\ColorButton\obj\Debug\net9.0\ColorButton.GeneratedMSBuildEditorConfig.editorconfig
+C:\C#Programs\HelloTest\ColorButton\obj\Debug\net9.0\ColorButton.AssemblyInfoInputs.cache
+C:\C#Programs\HelloTest\ColorButton\obj\Debug\net9.0\ColorButton.AssemblyInfo.cs
+C:\C#Programs\HelloTest\ColorButton\obj\Debug\net9.0\ColorButton.csproj.CoreCompileInputs.cache
+C:\C#Programs\HelloTest\ColorButton\obj\Debug\net9.0\ColorButton.sourcelink.json
+C:\C#Programs\HelloTest\ColorButton\bin\Debug\net9.0\ColorButton.deps.json
+C:\C#Programs\HelloTest\ColorButton\bin\Debug\net9.0\ColorButton.dll
+C:\C#Programs\HelloTest\ColorButton\bin\Debug\net9.0\ColorButton.pdb
+C:\C#Programs\HelloTest\ColorButton\obj\Debug\net9.0\ColorButton.dll
+C:\C#Programs\HelloTest\ColorButton\obj\Debug\net9.0\refint\ColorButton.dll
+C:\C#Programs\HelloTest\ColorButton\obj\Debug\net9.0\ColorButton.pdb
+C:\C#Programs\HelloTest\ColorButton\obj\Debug\net9.0\ref\ColorButton.dll
